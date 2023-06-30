@@ -237,9 +237,52 @@ if __name__ == "__main__":
     parser.add_argument('--image_size', default=512, type=int, help='images size')
     parser.add_argument('--image_filter_size', default=256, type=int, help='image filter size')
     
+    parser.add_argument('--data_url', metavar='DIR', default='', help='path to dataset')
+    parser.add_argument('--train_url', metavar='DIR', default='', help='save output')
+    parser.add_argument('--multi_data_url',help='path to multi dataset', default= '/cache/data/')
+    parser.add_argument('--ckpt_url', type=str, default=None,help='load ckpt file path')
+    parser.add_argument('--ckpt_path', type=str, default='/cache/pretrain/',help='load ckpt file path')
+    parser.add_argument('--pretrain_url', type=str, default=None, help='load ckpt file path')
+    parser.add_argument('--use_qizhi', type=bool, default=False,help='use qizhi')
+    parser.add_argument('--use_zhisuan', type=bool, default=True, help='use zhisuan')
+    
     args = parser.parse_args()
     args = parse_with_config(args)
     abs_path = os.path.abspath(os.path.join(os.path.dirname(os.path.abspath(__file__)), ""))
     args.model_config = os.path.join(abs_path, args.model_config)
     print(args)
+    
+    if args.use_qizhi:
+        from openi import openi_multidataset_to_env as DatasetToEnv  
+        from openi import pretrain_to_env as PretrainToEnv
+        from openi import env_to_openi as EnvToOpeni
+        data_dir = '/cache/data/'  
+        train_dir = '/cache/output/'
+        pretrain_dir = '/cache/pretrain/'
+        if not os.path.exists(data_dir):
+            os.makedirs(data_dir)      
+        if not os.path.exists(train_dir):
+            os.makedirs(train_dir)
+        if not os.path.exists(pretrain_dir):
+            os.makedirs(pretrain_dir)
+        DatasetToEnv(args.multi_data_url,data_dir)
+
+
+    if args.use_zhisuan:
+        from openi import c2net_multidataset_to_env as DatasetToEnv  
+        from openi import pretrain_to_env as PretrainToEnv
+        from openi import env_to_openi as EnvToOpeni
+        data_dir = '/cache/data/'  
+        train_dir = '/cache/output/'
+        pretrain_dir = '/cache/pretrain/'
+        if not os.path.exists(data_dir):
+            os.makedirs(data_dir)      
+        if not os.path.exists(train_dir):
+            os.makedirs(train_dir)
+        if not os.path.exists(pretrain_dir):
+            os.makedirs(pretrain_dir)
+        DatasetToEnv(args.multi_data_url,data_dir)
     main(args)
+    
+    if args.use_qizhi:
+        EnvToOpeni(train_dir,args.train_url)
