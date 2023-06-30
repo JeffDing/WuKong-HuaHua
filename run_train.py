@@ -19,6 +19,8 @@ import sys
 import argparse
 import importlib
 
+os.system('pip install omegaconf')
+
 import albumentations
 import mindspore as ms
 from omegaconf import OmegaConf
