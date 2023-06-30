@@ -19,7 +19,8 @@ import sys
 import argparse
 import importlib
 
-os.system('pip install omegaconf')
+abs_path = os.path.abspath(os.path.join(os.path.dirname(os.path.abspath(__file__)), ""))
+os.system('pip install -r [abs_path]/requirements.txt')
 
 import albumentations
 import mindspore as ms
