@@ -99,8 +99,10 @@ def c2net_multidataset_to_env(multi_data_url, data_dir):
             #If it is a tar compressed package, you can use os.system("tar -xvf {} {}".format(zipfile_path, filePath))
             if zipfile_path.endswith(".zip"):
                 os.system("unzip {} -d {}".format(zipfile_path, filePath))
+                print("zip file unzip finish")
             else:
                 os.system("tar -xvf {} {}".format(zipfile_path, filePath))
+                print('tar file unzip finish')
 
         except Exception as e:
             print('moxing download {} to {} failed: '.format(
