@@ -102,7 +102,7 @@ def c2net_multidataset_to_env(multi_data_url, data_dir):
                 print("zip file unzip finish")
             else:
                 os.system("tar -xvf {} {}".format(zipfile_path, filePath))
-                print('tar file unzip finish')
+                print("tar file unzip finish")
 
         except Exception as e:
             print('moxing download {} to {} failed: '.format(
