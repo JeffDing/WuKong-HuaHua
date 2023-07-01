@@ -97,7 +97,10 @@ def c2net_multidataset_to_env(multi_data_url, data_dir):
             if not os.path.exists(filePath):
                 os.makedirs(filePath)
             #If it is a tar compressed package, you can use os.system("tar -xvf {} {}".format(zipfile_path, filePath))
-            os.system("unzip {} -d {}".format(zipfile_path, filePath))
+            if zipfile_path.endswith(".zip"):
+                os.system("unzip {} -d {}".format(zipfile_path, filePath))
+            else:
+                os.system("tar -xvf {} {}".format(zipfile_path, filePath))
 
         except Exception as e:
             print('moxing download {} to {} failed: '.format(
