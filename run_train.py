@@ -269,6 +269,7 @@ if __name__ == "__main__":
         if not os.path.exists(pretrain_dir):
             os.makedirs(pretrain_dir)
         DatasetToEnv(args.multi_data_url,data_dir)
+        PretrainToEnv(args.pretrain_url,pretrain_dir)
 
 
     if args.use_zhisuan:
@@ -285,6 +286,8 @@ if __name__ == "__main__":
         if not os.path.exists(pretrain_dir):
             os.makedirs(pretrain_dir)
         DatasetToEnv(args.multi_data_url,data_dir)
+        PretrainToEnv(args.pretrain_url,pretrain_dir)
+    
     main(args)
     
     if args.use_qizhi:
