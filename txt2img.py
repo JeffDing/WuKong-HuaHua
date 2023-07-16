@@ -219,7 +219,8 @@ def main():
             os.makedirs(train_dir)
         if not os.path.exists(pretrain_dir):
             os.makedirs(pretrain_dir)
-        DatasetToEnv(opt.multi_data_url,data_dir)
+        if opt.data_path:
+            DatasetToEnv(opt.multi_data_url,data_dir)
         PretrainToEnv(opt.pretrain_url,pretrain_dir)
 
 
@@ -236,7 +237,8 @@ def main():
             os.makedirs(train_dir)
         if not os.path.exists(pretrain_dir):
             os.makedirs(pretrain_dir)
-        DatasetToEnv(opt.multi_data_url,data_dir)
+        if opt.data_path:
+            DatasetToEnv(opt.multi_data_url,data_dir)
         PretrainToEnv(opt.pretrain_url,pretrain_dir)
     
     work_dir = os.path.dirname(os.path.abspath(__file__))
