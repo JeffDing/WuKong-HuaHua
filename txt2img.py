@@ -295,7 +295,7 @@ def main():
           f" \nEnjoy.")
           
 if __name__ == "__main__":
-    if args.use_qizhi:
+    if opt.use_qizhi:
         from openi import openi_multidataset_to_env as DatasetToEnv  
         from openi import pretrain_to_env as PretrainToEnv
         from openi import env_to_openi as EnvToOpeni
@@ -308,11 +308,11 @@ if __name__ == "__main__":
             os.makedirs(train_dir)
         if not os.path.exists(pretrain_dir):
             os.makedirs(pretrain_dir)
-        DatasetToEnv(args.multi_data_url,data_dir)
-        PretrainToEnv(args.pretrain_url,pretrain_dir)
+        DatasetToEnv(opt.multi_data_url,data_dir)
+        PretrainToEnv(opt.pretrain_url,pretrain_dir)
 
 
-    if args.use_zhisuan:
+    if opt.use_zhisuan:
         from openi import c2net_multidataset_to_env as DatasetToEnv  
         from openi import pretrain_to_env as PretrainToEnv
         from openi import env_to_openi as EnvToOpeni
@@ -325,10 +325,10 @@ if __name__ == "__main__":
             os.makedirs(train_dir)
         if not os.path.exists(pretrain_dir):
             os.makedirs(pretrain_dir)
-        DatasetToEnv(args.multi_data_url,data_dir)
-        PretrainToEnv(args.pretrain_url,pretrain_dir)
+        DatasetToEnv(opt.multi_data_url,data_dir)
+        PretrainToEnv(opt.pretrain_url,pretrain_dir)
 
     main()
 
-    if args.use_qizhi:
-        EnvToOpeni(train_dir,args.train_url)
+    if opt.use_qizhi:
+        EnvToOpeni(train_dir,opt.train_url)
