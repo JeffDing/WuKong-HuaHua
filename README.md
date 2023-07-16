@@ -1,6 +1,8 @@
 
 # 悟空画画
 
+来源Github：[https://github.com/mindspore-lab/minddiffusion](https://github.com/mindspore-lab/minddiffusion)
+
 ## 目录
 
 [Check English](./README_EN.md)
