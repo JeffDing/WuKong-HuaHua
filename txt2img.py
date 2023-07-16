@@ -205,6 +205,40 @@ def main():
     parser.add_argument('--use_zhisuan', type=bool, default=True, help='use zhisuan')
 
     opt = parser.parse_args()
+
+    if opt.use_qizhi:
+        from openi import openi_multidataset_to_env as DatasetToEnv  
+        from openi import pretrain_to_env as PretrainToEnv
+        from openi import env_to_openi as EnvToOpeni
+        data_dir = '/cache/data/'  
+        train_dir = '/cache/output/'
+        pretrain_dir = '/cache/pretrain/'
+        if not os.path.exists(data_dir):
+            os.makedirs(data_dir)      
+        if not os.path.exists(train_dir):
+            os.makedirs(train_dir)
+        if not os.path.exists(pretrain_dir):
+            os.makedirs(pretrain_dir)
+        DatasetToEnv(opt.multi_data_url,data_dir)
+        PretrainToEnv(opt.pretrain_url,pretrain_dir)
+
+
+    if opt.use_zhisuan:
+        from openi import c2net_multidataset_to_env as DatasetToEnv  
+        from openi import pretrain_to_env as PretrainToEnv
+        from openi import env_to_openi as EnvToOpeni
+        data_dir = '/cache/data/'  
+        train_dir = '/cache/output/'
+        pretrain_dir = '/cache/pretrain/'
+        if not os.path.exists(data_dir):
+            os.makedirs(data_dir)      
+        if not os.path.exists(train_dir):
+            os.makedirs(train_dir)
+        if not os.path.exists(pretrain_dir):
+            os.makedirs(pretrain_dir)
+        DatasetToEnv(opt.multi_data_url,data_dir)
+        PretrainToEnv(opt.pretrain_url,pretrain_dir)
+    
     work_dir = os.path.dirname(os.path.abspath(__file__))
     print(f"WORK DIR:{work_dir}")
     
@@ -293,42 +327,9 @@ def main():
 
         print(f"Your samples are ready and waiting for you here: \n{outpath} \n"
           f" \nEnjoy.")
-          
-if __name__ == "__main__":
-    if opt.use_qizhi:
-        from openi import openi_multidataset_to_env as DatasetToEnv  
-        from openi import pretrain_to_env as PretrainToEnv
-        from openi import env_to_openi as EnvToOpeni
-        data_dir = '/cache/data/'  
-        train_dir = '/cache/output/'
-        pretrain_dir = '/cache/pretrain/'
-        if not os.path.exists(data_dir):
-            os.makedirs(data_dir)      
-        if not os.path.exists(train_dir):
-            os.makedirs(train_dir)
-        if not os.path.exists(pretrain_dir):
-            os.makedirs(pretrain_dir)
-        DatasetToEnv(opt.multi_data_url,data_dir)
-        PretrainToEnv(opt.pretrain_url,pretrain_dir)
-
-
-    if opt.use_zhisuan:
-        from openi import c2net_multidataset_to_env as DatasetToEnv  
-        from openi import pretrain_to_env as PretrainToEnv
-        from openi import env_to_openi as EnvToOpeni
-        data_dir = '/cache/data/'  
-        train_dir = '/cache/output/'
-        pretrain_dir = '/cache/pretrain/'
-        if not os.path.exists(data_dir):
-            os.makedirs(data_dir)      
-        if not os.path.exists(train_dir):
-            os.makedirs(train_dir)
-        if not os.path.exists(pretrain_dir):
-            os.makedirs(pretrain_dir)
-        DatasetToEnv(opt.multi_data_url,data_dir)
-        PretrainToEnv(opt.pretrain_url,pretrain_dir)
-
-    main()
-
+              
     if opt.use_qizhi:
         EnvToOpeni(train_dir,opt.train_url)
+          
+if __name__ == "__main__":
+    main()
