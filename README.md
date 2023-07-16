@@ -3,9 +3,6 @@
 
 来源Github：[https://github.com/mindspore-lab/minddiffusion](https://github.com/mindspore-lab/minddiffusion)
 
-## 修改部分
-针对启智OpenI添加了适配代码，适配在OpenI平台运行直接创建任务运行
-
 ## 目录
 
 [Check English](./README_EN.md)
