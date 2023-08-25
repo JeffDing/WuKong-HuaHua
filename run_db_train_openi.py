@@ -20,7 +20,8 @@ import argparse
 import importlib
 
 abs_path = os.path.abspath(os.path.join(os.path.dirname(os.path.abspath(__file__)), ""))
-os.system(f"pip install -r {abs_path}/requirements.txt -i https://pypi.tuna.tsinghua.edu.cn/simple")
+#os.system(f"pip install -r {abs_path}/requirements.txt -i https://pypi.tuna.tsinghua.edu.cn/simple")
+os.system(f"pip install -r {abs_path}/requirements.txt")
 
 import albumentations
 import mindspore as ms
@@ -72,7 +73,6 @@ def init_env(opts):
     context.set_context(mode=context.GRAPH_MODE,
                         device_target="Ascend",
                         device_id=device_id,
-                        max_device_memory="30GB",
                         )
 
     """ create dataset"""
@@ -257,6 +257,10 @@ if __name__ == "__main__":
     parser.add_argument('--pretrain_url', type=str, default=None, help='load ckpt file path')
     parser.add_argument('--use_qizhi', type=bool, default=False,help='use qizhi')
     parser.add_argument('--use_zhisuan', type=bool, default=True, help='use zhisuan')
+
+    parser.add_argument('--model_url', type=str, default='',help='load ckpt file path')
+    parser.add_argument('--grampus_code_url', type=str, default='',help='load ckpt file path')
+    parser.add_argument('--grampus_code_file_name', type=str, default='',help='load ckpt file path')
     
     args = parser.parse_args()
     args = parse_with_config(args)
