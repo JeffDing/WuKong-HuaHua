@@ -260,6 +260,7 @@ if __name__ == "__main__":
 
     parser.add_argument('--enable_lora', default=False, type=str2bool, help='enable lora')
     
+    parser.add_argument('--device_target', type=str, default="Ascend", choices=['Ascend', 'GPU', 'CPU'],help='device where the code will be implemented (default: Ascend)')
     parser.add_argument('--data_url', metavar='DIR', default='', help='path to dataset')
     parser.add_argument('--train_url', metavar='DIR', default='', help='save output')
     parser.add_argument('--multi_data_url',help='path to multi dataset', default= '/cache/data/')
