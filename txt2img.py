@@ -14,10 +14,6 @@
 # ============================================================================
 
 import os
-
-abs_path = os.path.abspath(os.path.join(os.path.dirname(os.path.abspath(__file__)), ""))
-os.system(f"pip install -r {abs_path}/requirements.txt")
-
 import time
 import sys
 import argparse
@@ -53,14 +49,21 @@ def numpy_to_pil(images):
     return pil_images
 
 
+def str2bool(b):
+    if b.lower() not in ["false", "true"]:
+        raise Exception("Invalid Bool Value")
+    if b.lower() in ["false"]:
+        return False
+    return True
+
+
 def load_model_from_config(config, ckpt, verbose=False):
     print(f"Loading model from {ckpt}")
     model = instantiate_from_config(config.model)
     if os.path.exists(ckpt):
         param_dict = ms.load_checkpoint(ckpt)
         if param_dict:
-            param_not_load = ms.load_param_into_net(model, param_dict)
-            print("param not load:", param_not_load)
+            ms.load_param_into_net(model, param_dict)
     else:
         print(f"!!!Warning!!!: {ckpt} doesn't exist")
 
@@ -195,52 +198,9 @@ def main():
         choices=["full", "autocast"],
         default="autocast"
     )
-
-    parser.add_argument('--data_url', metavar='DIR', default='', help='path to dataset')
-    parser.add_argument('--train_url', metavar='DIR', default='', help='save output')
-    parser.add_argument('--multi_data_url',help='path to multi dataset', default= '/cache/data/')
-    parser.add_argument('--ckpt_url', type=str, default=None,help='load ckpt file path')
-    parser.add_argument('--pretrain_url', type=str, default=None, help='load ckpt file path')
-    parser.add_argument('--use_qizhi', type=bool, default=False,help='use qizhi')
-    parser.add_argument('--use_zhisuan', type=bool, default=True, help='use zhisuan')
-
+    parser.add_argument("--enable_lora", default=False, type=str2bool, help="enable lora")
+    parser.add_argument("--lora_ckpt_filepath", type=str, default="models", help="path to checkpoint of model with lora")
     opt = parser.parse_args()
-
-    if opt.use_qizhi:
-        from openi import openi_multidataset_to_env as DatasetToEnv  
-        from openi import pretrain_to_env as PretrainToEnv
-        from openi import env_to_openi as EnvToOpeni
-        data_dir = '/cache/data/'  
-        train_dir = '/cache/output/'
-        pretrain_dir = '/cache/pretrain/'
-        if not os.path.exists(data_dir):
-            os.makedirs(data_dir)      
-        if not os.path.exists(train_dir):
-            os.makedirs(train_dir)
-        if not os.path.exists(pretrain_dir):
-            os.makedirs(pretrain_dir)
-        if opt.data_path:
-            DatasetToEnv(opt.multi_data_url,data_dir)
-        PretrainToEnv(opt.pretrain_url,pretrain_dir)
-
-
-    if opt.use_zhisuan:
-        from openi import c2net_multidataset_to_env as DatasetToEnv  
-        from openi import pretrain_to_env as PretrainToEnv
-        from openi import env_to_openi as EnvToOpeni
-        data_dir = '/cache/data/'  
-        train_dir = '/cache/output/'
-        pretrain_dir = '/cache/pretrain/'
-        if not os.path.exists(data_dir):
-            os.makedirs(data_dir)      
-        if not os.path.exists(train_dir):
-            os.makedirs(train_dir)
-        if not os.path.exists(pretrain_dir):
-            os.makedirs(pretrain_dir)
-        if opt.data_path:
-            DatasetToEnv(opt.multi_data_url,data_dir)
-        PretrainToEnv(opt.pretrain_url,pretrain_dir)
-    
     work_dir = os.path.dirname(os.path.abspath(__file__))
     print(f"WORK DIR:{work_dir}")
     
@@ -258,6 +218,11 @@ def main():
         opt.config = os.path.join(work_dir, opt.config)
     config = OmegaConf.load(f"{opt.config}")
     model = load_model_from_config(config, f"{os.path.join(opt.ckpt_path, opt.ckpt_name)}")
+
+    if opt.enable_lora:
+        lora_ckpt_path = opt.lora_ckpt_filepath
+        lora_param_dict = ms.load_checkpoint(lora_ckpt_path)
+        ms.load_param_into_net(model, lora_param_dict)
 
     if opt.dpm_solver:
         sampler = DPMSolverSampler(model)
@@ -329,9 +294,6 @@ def main():
 
         print(f"Your samples are ready and waiting for you here: \n{outpath} \n"
           f" \nEnjoy.")
-              
-    if opt.use_qizhi:
-        EnvToOpeni(train_dir,opt.train_url)
           
 if __name__ == "__main__":
     main()
