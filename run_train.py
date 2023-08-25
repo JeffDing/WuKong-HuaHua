@@ -286,9 +286,9 @@ if __name__ == "__main__":
         from openi import openi_multidataset_to_env as DatasetToEnv  
         from openi import pretrain_to_env as PretrainToEnv
         from openi import env_to_openi as EnvToOpeni
-        data_dir = '/cache/data/'  
-        train_dir = '/cache/output/'
-        pretrain_dir = '/cache/pretrain/'
+        data_dir = '/cache/data'  
+        train_dir = '/cache/output'
+        pretrain_dir = '/cache/pretrain'
         if not os.path.exists(data_dir):
             os.makedirs(data_dir)      
         if not os.path.exists(train_dir):
@@ -303,9 +303,9 @@ if __name__ == "__main__":
         from openi import c2net_multidataset_to_env as DatasetToEnv  
         from openi import pretrain_to_env as PretrainToEnv
         from openi import env_to_openi as EnvToOpeni
-        data_dir = '/cache/data/'  
-        train_dir = '/cache/output/'
-        pretrain_dir = '/cache/pretrain/'
+        data_dir = '/cache/data'  
+        train_dir = '/cache/output'
+        pretrain_dir = '/cache/pretrain'
         if not os.path.exists(data_dir):
             os.makedirs(data_dir)      
         if not os.path.exists(train_dir):
