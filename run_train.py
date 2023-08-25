@@ -267,6 +267,7 @@ if __name__ == "__main__":
     parser.add_argument('--multi_data_url',help='path to multi dataset', default= '/cache/data/')
     parser.add_argument('--ckpt_url', type=str, default=None,help='load ckpt file path')
     parser.add_argument('--ckpt_path', type=str, default='/cache/pretrain/',help='load ckpt file path')
+    parser.add_argument('--model_url', type=str, default='/cache/pretrain/',help='load ckpt file path')
     parser.add_argument('--pretrain_url', type=str, default=None, help='load ckpt file path')
     parser.add_argument('--use_qizhi', type=bool, default=False,help='use qizhi')
     parser.add_argument('--use_zhisuan', type=bool, default=True, help='use zhisuan')
