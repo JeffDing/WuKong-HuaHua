@@ -208,12 +208,6 @@ bash scripts/run_txt2img_lora.sh
 
 以下为基于FFAQ人脸数据集微调后的效果。
 
-<img src="C:\Users\admin\AppData\Roaming\Typora\typora-user-images\image-20230725115346705.png" style="zoom:80%;" />
-
-<img src="C:\Users\admin\AppData\Roaming\Typora\typora-user-images\image-20230725115504865.png" alt="image-20230725115504865" style="zoom:80%;" />
-
-
-
 | 模型     | 参数量 | 内存   | 训练时长     | ckpt大小 |
 | -------- | ------ | ------ | ------------ | -------- |
 | baseline | 100%   | 27850M | 112min/epoch | 4G       |
