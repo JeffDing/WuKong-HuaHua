@@ -73,16 +73,16 @@ def init_env(opts):
 
     context.set_context(mode=context.GRAPH_MODE,
                             device_target="Ascend",
-                            device_id=device_id
+                            device_id=device_id,
                             )
 
-'''
+"""
     context.set_context(mode=context.GRAPH_MODE,
                         device_target="Ascend",
                         device_id=device_id,
                         max_device_memory="30GB"
                         )
-'''
+"""
 
     """ create dataset"""
     tokenizer = WordpieceTokenizer()
