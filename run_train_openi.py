@@ -199,6 +199,15 @@ def main(opts):
     ofm_cb = OverflowMonitor()
     callback.append(ofm_cb)
 
+    if opts.use_zhisuan or opts.use_qizhi:
+            from openi import EnvToOpenIEpochEnd
+            
+            local_rank=int(os.getenv('RANK_ID'))
+            #非必选，每个epoch结束后，都手动上传训练结果到启智平台，注意这样使用会占用很多内存，只有在部分特殊需要手动上传的任务才需要使用
+            uploadOutput = EnvToOpenIEpochEnd(opts.output_path,opts.model_url)
+            callback.append(uploadOutput) 
+        
+
     if rank_id == 0:
         dataset_size = dataset.get_dataset_size()
         if not opts.save_checkpoint_steps:
@@ -224,17 +233,7 @@ def main(opts):
             ckpoint_cb = TrainableParamsCheckPoint(prefix="wkhh_txt2img_lora",
                                          directory=ckpt_dir,
                                          config=config_ck)
-        
-        if opt.use_zhisuan or opt.use_qizhi:
-            from openi import EnvToOpenIEpochEnd
-            
-            local_rank=int(os.getenv('RANK_ID'))
-            #非必选，每个epoch结束后，都手动上传训练结果到启智平台，注意这样使用会占用很多内存，只有在部分特殊需要手动上传的任务才需要使用
-            uploadOutput = EnvToOpenIEpochEnd(train_dir,args.model_url)
-            callback.append(uploadOutput) 
-        
         callback.append(ckpoint_cb)
-
 
     print("start_training...")
     model.train(opts.epochs, dataset, callbacks=callback, dataset_sink_mode=False)
