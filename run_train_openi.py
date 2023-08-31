@@ -224,16 +224,17 @@ def main(opts):
             ckpoint_cb = TrainableParamsCheckPoint(prefix="wkhh_txt2img_lora",
                                          directory=ckpt_dir,
                                          config=config_ck)
-
-        callback.append(ckpoint_cb)
         
-        local_rank=int(os.getenv('RANK_ID'))
-        #非必选，每个epoch结束后，都手动上传训练结果到启智平台，注意这样使用会占用很多内存，只有在部分特殊需要手动上传的任务才需要使用
-        uploadOutput = EnvToOpenIEpochEnd(train_dir,args.model_url)
-        callback.append(uploadOutput) 
-        # for data parallel, only save checkpoint on rank 0
-        if local_rank==0 :
-            callback.append(ckpoint_cb) 
+        if opt.use_zhisuan or opt.use_qizhi:
+            from openi import EnvToOpenIEpochEnd
+            
+            local_rank=int(os.getenv('RANK_ID'))
+            #非必选，每个epoch结束后，都手动上传训练结果到启智平台，注意这样使用会占用很多内存，只有在部分特殊需要手动上传的任务才需要使用
+            uploadOutput = EnvToOpenIEpochEnd(train_dir,args.model_url)
+            callback.append(uploadOutput) 
+        
+        callback.append(ckpoint_cb)
+
 
     print("start_training...")
     model.train(opts.epochs, dataset, callbacks=callback, dataset_sink_mode=False)
@@ -295,7 +296,6 @@ if __name__ == "__main__":
         from openi import openi_multidataset_to_env as DatasetToEnv  
         from openi import pretrain_to_env as PretrainToEnv
         from openi import env_to_openi as EnvToOpeni
-        from openi import EnvToOpenIEpochEnd
 
         data_dir = '/cache/data'  
         train_dir = '/cache/output'
@@ -314,7 +314,6 @@ if __name__ == "__main__":
         from openi import c2net_multidataset_to_env as DatasetToEnv  
         from openi import pretrain_to_env as PretrainToEnv
         from openi import env_to_openi as EnvToOpeni
-        from openi import EnvToOpenIEpochEnd
         
         data_dir = '/cache/data'  
         train_dir = '/cache/output'
