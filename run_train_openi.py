@@ -200,12 +200,12 @@ def main(opts):
     callback.append(ofm_cb)
 
     if opts.use_zhisuan or opts.use_qizhi:
-            from openi import EnvToOpenIEpochEnd
-            
-            local_rank=int(os.getenv('RANK_ID'))
-            #非必选，每个epoch结束后，都手动上传训练结果到启智平台，注意这样使用会占用很多内存，只有在部分特殊需要手动上传的任务才需要使用
-            uploadOutput = EnvToOpenIEpochEnd(opts.output_path,opts.model_url)
-            callback.append(uploadOutput) 
+        from openi import EnvToOpenIEpochEnd
+        
+        local_rank=int(os.getenv('RANK_ID'))
+        #非必选，每个epoch结束后，都手动上传训练结果到启智平台，注意这样使用会占用很多内存，只有在部分特殊需要手动上传的任务才需要使用
+        uploadOutput = EnvToOpenIEpochEnd(opts.output_path,opts.model_url)
+        callback.append(uploadOutput) 
         
 
     if rank_id == 0:
