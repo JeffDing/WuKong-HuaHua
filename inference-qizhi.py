@@ -14,11 +14,13 @@
 # ============================================================================
 
 import os
-os.system("pip install OmegaConf -i https://pypi.tuna.tsinghua.edu.cn/simple/")
-os.system("pip install imagesize -i https://pypi.tuna.tsinghua.edu.cn/simple/")
-os.system("pip install toolz -i https://pypi.tuna.tsinghua.edu.cn/simple/")
-os.system("pip install ftfy -i https://pypi.tuna.tsinghua.edu.cn/simple/")
-os.system("pip install regex -i https://pypi.tuna.tsinghua.edu.cn/simple/")
+os.system("pip install OmegaConf")
+os.system("pip install imagesize")
+os.system("pip install toolz")
+os.system("pip install ftfy")
+os.system("pip install regex")
+os.system("pip install mindpet")
+
 import time
 import sys
 import argparse
