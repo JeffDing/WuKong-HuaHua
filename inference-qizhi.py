@@ -55,6 +55,10 @@ def parse_arguments():
     parser.add_argument('--pretrain_url', default="", type=str, help='pretrained model directory')
     parser.add_argument('--device_target', default="Ascend", type=str, help='pretrained model directory')
 
+    parser.add_argument('--model_url', type=str, default='',help='load ckpt file path')
+    parser.add_argument('--grampus_code_url', type=str, default='',help='load ckpt file path')
+    parser.add_argument('--grampus_code_file_name', type=str, default='',help='load ckpt file path')
+
     parser.add_argument(
         "--data_path",
         type=str,
