@@ -6,8 +6,8 @@ from PIL import Image
 from io import BytesIO
 
 
-ENDPOINT = "xxxxxxxxxxxxxxxxxxx"
-TOKEN = "xxxxxxxxxxxxxxxxxxxxxxxx"
+ENDPOINT = "https://xihe.mindspore.cn/api/v1/bigmodel/api/wukong"
+TOKEN = "295a7ac7e54a1bd0ade3b81e294cdc53b6c12cff583cfb36898e2a399f747b40ef8a87a86d69b1d350f2b32946060e"
 
 
 def deliver_request(style, desc):
