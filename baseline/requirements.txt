@@ -1,6 +1,0 @@
-scikit-image==0.21.0
-omegaconf
-ftfy
-regex
-imagesize
-toolz
