@@ -19,6 +19,9 @@ import time
 import argparse
 import importlib
 
+abs_path = os.path.abspath(os.path.join(os.path.dirname(os.path.abspath(__file__)), ""))
+os.system(f"pip install -r {abs_path}/requirements.txt -i https://pypi.tuna.tsinghua.edu.cn/simple")
+
 import albumentations
 import mindspore as ms
 from mindspore import Model, context
@@ -28,6 +31,8 @@ from mindspore.train.callback import LossMonitor, TimeMonitor, CheckpointConfig,
 from mindspore.nn import DynamicLossScaleUpdateCell
 from mindspore.nn import TrainOneStepWithLossScaleCell
 from mindspore.nn.wrap.loss_scale import DynamicLossScaleUpdateCell
+
+from omegaconf import OmegaConf
 
 from ldm.data.dataset_db import load_data
 from ldm.models.clip_zh.simple_tokenizer import WordpieceTokenizer
@@ -268,9 +273,6 @@ if __name__ == "__main__":
         from openi import pretrain_to_env as PretrainToEnv
         from openi import env_to_openi as EnvToOpeni
 
-        abs_path = os.path.abspath(os.path.join(os.path.dirname(os.path.abspath(__file__)), ""))
-        os.system(f"pip install -r {abs_path}/requirements.txt -i https://pypi.tuna.tsinghua.edu.cn/simple")
-
         data_dir = '/cache/data/'  
         train_dir = '/cache/output/'
         pretrain_dir = '/cache/pretrain/'
@@ -289,9 +291,6 @@ if __name__ == "__main__":
         from openi import pretrain_to_env as PretrainToEnv
         from openi import env_to_openi as EnvToOpeni
 
-        abs_path = os.path.abspath(os.path.join(os.path.dirname(os.path.abspath(__file__)), ""))
-        os.system(f"pip install -r {abs_path}/requirements.txt")
-
         data_dir = '/cache/data/'  
         train_dir = '/cache/output/'
         pretrain_dir = '/cache/pretrain/'
@@ -303,8 +302,6 @@ if __name__ == "__main__":
             os.makedirs(pretrain_dir)
         DatasetToEnv(args.multi_data_url,data_dir)
         PretrainToEnv(args.pretrain_url,pretrain_dir)
-          
-    from omegaconf import OmegaConf
     
     start = time.time()
     main(args)
