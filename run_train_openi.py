@@ -315,7 +315,7 @@ if __name__ == "__main__":
         from openi import env_to_openi as EnvToOpeni
         
         abs_path = os.path.abspath(os.path.join(os.path.dirname(os.path.abspath(__file__)), ""))
-        os.system(f"pip install -r {abs_path}/requirements.txt"
+        os.system(f"pip install -r {abs_path}/requirements.txt")
         os.system(f"pip install mindpet")
 
         data_dir = '/cache/data'  
