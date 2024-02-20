@@ -19,10 +19,6 @@ import time
 import argparse
 import importlib
 
-abs_path = os.path.abspath(os.path.join(os.path.dirname(os.path.abspath(__file__)), ""))
-#os.system(f"pip install -r {abs_path}/requirements.txt -i https://pypi.tuna.tsinghua.edu.cn/simple")
-os.system(f"pip install -r {abs_path}/requirements.txt")
-
 import albumentations
 import mindspore as ms
 from omegaconf import OmegaConf
@@ -212,7 +208,6 @@ def main(opts):
 
     print("start_training...")
     model.train(opts.epochs, dataset, callbacks=callback, dataset_sink_mode=False)
-    export(model, dataset, file_name=args.file_name, file_format=args.file_format)
 
 
 if __name__ == "__main__":
@@ -248,8 +243,6 @@ if __name__ == "__main__":
     parser.add_argument('--filter_small_size', default=True, type=str2bool, help='filter small images')
     parser.add_argument('--image_size', default=512, type=int, help='images size')
     parser.add_argument('--image_filter_size', default=256, type=int, help='image filter size')
-    parser.add_argument("--file_name", type=str, default="wukong",help="output file name.")
-    parser.add_argument("--file_format", type=str, choices=["AIR", "ONNX", "MINDIR"], default="MINDIR", help="file format")
 
     parser.add_argument('--device_target', type=str, default="Ascend", choices=['Ascend', 'GPU', 'CPU'],help='device where the code will be implemented (default: Ascend)')
     parser.add_argument('--data_url', metavar='DIR', default='', help='path to dataset')
@@ -275,6 +268,10 @@ if __name__ == "__main__":
         from openi import openi_multidataset_to_env as DatasetToEnv  
         from openi import pretrain_to_env as PretrainToEnv
         from openi import env_to_openi as EnvToOpeni
+
+        abs_path = os.path.abspath(os.path.join(os.path.dirname(os.path.abspath(__file__)), ""))
+        os.system(f"pip install -r {abs_path}/requirements.txt -i https://pypi.tuna.tsinghua.edu.cn/simple")
+
         data_dir = '/cache/data/'  
         train_dir = '/cache/output/'
         pretrain_dir = '/cache/pretrain/'
@@ -292,6 +289,10 @@ if __name__ == "__main__":
         from openi import c2net_multidataset_to_env as DatasetToEnv  
         from openi import pretrain_to_env as PretrainToEnv
         from openi import env_to_openi as EnvToOpeni
+
+        abs_path = os.path.abspath(os.path.join(os.path.dirname(os.path.abspath(__file__)), ""))
+        os.system(f"pip install -r {abs_path}/requirements.txt")
+
         data_dir = '/cache/data/'  
         train_dir = '/cache/output/'
         pretrain_dir = '/cache/pretrain/'
