@@ -273,6 +273,7 @@ if __name__ == "__main__":
     parser.add_argument('--device_target', type=str, default="Ascend", choices=['Ascend', 'GPU', 'CPU'],help='device where the code will be implemented (default: Ascend)')
     parser.add_argument('--data_url', metavar='DIR', default='', help='path to dataset')
     parser.add_argument('--train_url', metavar='DIR', default='', help='save output')
+    parser.add_argument('--result_url', metavar='DIR', default='', help='save result url')
     parser.add_argument('--multi_data_url',help='path to multi dataset', default= '/cache/data/')
     parser.add_argument('--ckpt_url', type=str, default=None,help='load ckpt file path')
     parser.add_argument('--ckpt_path', type=str, default='/cache/pretrain/',help='load ckpt file path')
