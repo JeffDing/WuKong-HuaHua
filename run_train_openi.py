@@ -21,8 +21,8 @@ import importlib
 
 abs_path = os.path.abspath(os.path.join(os.path.dirname(os.path.abspath(__file__)), ""))
 #os.system(f"pip install -r {abs_path}/requirements.txt -i https://pypi.tuna.tsinghua.edu.cn/simple")
-os.system(f"pip install -r {abs_path}/requirements.txt")
-os.system(f"pip install mindpet")
+os.system(f"pip install -r {abs_path}/requirements.txt -i https://pypi.tuna.tsinghua.edu.cn/simple")
+os.system(f"pip install mindpet -i https://pypi.tuna.tsinghua.edu.cn/simple")
 
 import time
 import albumentations
