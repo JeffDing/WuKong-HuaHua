@@ -21,7 +21,6 @@ import importlib
 
 import albumentations
 import mindspore as ms
-from omegaconf import OmegaConf
 from mindspore import Model, context
 from mindspore import load_checkpoint, load_param_into_net
 from mindspore.communication.management import init, get_rank, get_group_size
@@ -305,6 +304,8 @@ if __name__ == "__main__":
         DatasetToEnv(args.multi_data_url,data_dir)
         PretrainToEnv(args.pretrain_url,pretrain_dir)
           
+    from omegaconf import OmegaConf
+    
     start = time.time()
     main(args)
     end = time.time()
