@@ -30,16 +30,6 @@ from mindspore.nn.wrap.loss_scale import DynamicLossScaleUpdateCell
 from mindspore.communication.management import init, get_rank, get_group_size
 from mindspore.train.callback import LossMonitor, TimeMonitor, CheckpointConfig, ModelCheckpoint
 
-from ldm.data.dataset import load_data
-from ldm.modules.train.optim import build_optimizer
-from ldm.modules.train.callback import OverflowMonitor
-from ldm.modules.train.learningrate import LearningRate
-from ldm.modules.train.parallel_config import ParallelConfig
-from ldm.models.clip_zh.simple_tokenizer import WordpieceTokenizer
-from ldm.modules.train.tools import parse_with_config, set_random_seed
-from ldm.modules.train.cell_wrapper import ParallelTrainOneStepWithLossScaleCell
-
-
 os.environ['HCCL_CONNECT_TIMEOUT'] = '6000'
 
 
@@ -330,6 +320,15 @@ if __name__ == "__main__":
         PretrainToEnv(args.pretrain_url,pretrain_dir)
     
     from omegaconf import OmegaConf
+
+    from ldm.data.dataset import load_data
+    from ldm.modules.train.optim import build_optimizer
+    from ldm.modules.train.callback import OverflowMonitor
+    from ldm.modules.train.learningrate import LearningRate
+    from ldm.modules.train.parallel_config import ParallelConfig
+    from ldm.models.clip_zh.simple_tokenizer import WordpieceTokenizer
+    from ldm.modules.train.tools import parse_with_config, set_random_seed
+    from ldm.modules.train.cell_wrapper import ParallelTrainOneStepWithLossScaleCell
 
     start = time.time()
     main(args)
