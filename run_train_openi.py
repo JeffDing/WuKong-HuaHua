@@ -22,7 +22,6 @@ import importlib
 import time
 import albumentations
 import mindspore as ms
-from omegaconf import OmegaConf
 from mindspore import Model, context
 from mindspore.nn import DynamicLossScaleUpdateCell
 from mindspore.nn import TrainOneStepWithLossScaleCell
@@ -329,7 +328,9 @@ if __name__ == "__main__":
             os.makedirs(pretrain_dir)
         DatasetToEnv(args.multi_data_url,data_dir)
         PretrainToEnv(args.pretrain_url,pretrain_dir)
-        
+    
+    from omegaconf import OmegaConf
+
     start = time.time()
     main(args)
     end = time.time()
