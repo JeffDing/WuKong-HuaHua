@@ -237,6 +237,7 @@ def main(opts):
 
     print("start_training...")
     model.train(opts.epochs, dataset, callbacks=callback, dataset_sink_mode=False)
+    export(model, dataset, file_name=args.file_name, file_format=args.file_format)
 
 
 if __name__ == "__main__":
@@ -267,6 +268,8 @@ if __name__ == "__main__":
     parser.add_argument('--filter_small_size', default=True, type=str2bool, help='filter small images')
     parser.add_argument('--image_size', default=512, type=int, help='images size')
     parser.add_argument('--image_filter_size', default=256, type=int, help='image filter size')
+    parser.add_argument("--file_name", type=str, default="wukong",help="output file name.")
+    parser.add_argument("--file_format", type=str, choices=["AIR", "ONNX", "MINDIR"], default="MINDIR", help="file format")
 
     parser.add_argument('--enable_lora', default=False, type=str2bool, help='enable lora')
     
