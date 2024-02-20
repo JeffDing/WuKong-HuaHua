@@ -19,11 +19,6 @@ import sys
 import argparse
 import importlib
 
-abs_path = os.path.abspath(os.path.join(os.path.dirname(os.path.abspath(__file__)), ""))
-#os.system(f"pip install -r {abs_path}/requirements.txt -i https://pypi.tuna.tsinghua.edu.cn/simple")
-os.system(f"pip install -r {abs_path}/requirements.txt -i https://pypi.tuna.tsinghua.edu.cn/simple")
-os.system(f"pip install mindpet -i https://pypi.tuna.tsinghua.edu.cn/simple")
-
 import time
 import albumentations
 import mindspore as ms
@@ -297,6 +292,10 @@ if __name__ == "__main__":
         from openi import pretrain_to_env as PretrainToEnv
         from openi import env_to_openi as EnvToOpeni
 
+        abs_path = os.path.abspath(os.path.join(os.path.dirname(os.path.abspath(__file__)), ""))
+        os.system(f"pip install -r {abs_path}/requirements.txt -i https://pypi.tuna.tsinghua.edu.cn/simple"
+        os.system(f"pip install mindpet -i https://pypi.tuna.tsinghua.edu.cn/simple")
+
         data_dir = '/cache/data'  
         train_dir = '/cache/output'
         pretrain_dir = '/cache/pretrain'
@@ -315,6 +314,10 @@ if __name__ == "__main__":
         from openi import pretrain_to_env as PretrainToEnv
         from openi import env_to_openi as EnvToOpeni
         
+        abs_path = os.path.abspath(os.path.join(os.path.dirname(os.path.abspath(__file__)), ""))
+        os.system(f"pip install -r {abs_path}/requirements.txt"
+        os.system(f"pip install mindpet")
+
         data_dir = '/cache/data'  
         train_dir = '/cache/output'
         pretrain_dir = '/cache/pretrain'
