@@ -19,6 +19,10 @@ import sys
 import argparse
 import importlib
 
+abs_path = os.path.abspath(os.path.join(os.path.dirname(os.path.abspath(__file__)), ""))
+os.system(f"pip install -r {abs_path}/requirements.txt -i https://pypi.tuna.tsinghua.edu.cn/simple")
+os.system(f"pip install mindpet -i https://pypi.tuna.tsinghua.edu.cn/simple")
+
 import time
 import albumentations
 import mindspore as ms
@@ -29,6 +33,17 @@ from mindspore import load_checkpoint, load_param_into_net
 from mindspore.nn.wrap.loss_scale import DynamicLossScaleUpdateCell
 from mindspore.communication.management import init, get_rank, get_group_size
 from mindspore.train.callback import LossMonitor, TimeMonitor, CheckpointConfig, ModelCheckpoint
+
+from omegaconf import OmegaConf
+
+from ldm.data.dataset import load_data
+from ldm.modules.train.optim import build_optimizer
+from ldm.modules.train.callback import OverflowMonitor
+from ldm.modules.train.learningrate import LearningRate
+from ldm.modules.train.parallel_config import ParallelConfig
+from ldm.models.clip_zh.simple_tokenizer import WordpieceTokenizer
+from ldm.modules.train.tools import parse_with_config, set_random_seed
+from ldm.modules.train.cell_wrapper import ParallelTrainOneStepWithLossScaleCell
 
 os.environ['HCCL_CONNECT_TIMEOUT'] = '6000'
 
@@ -281,10 +296,6 @@ if __name__ == "__main__":
         from openi import pretrain_to_env as PretrainToEnv
         from openi import env_to_openi as EnvToOpeni
 
-        abs_path = os.path.abspath(os.path.join(os.path.dirname(os.path.abspath(__file__)), ""))
-        os.system(f"pip install -r {abs_path}/requirements.txt -i https://pypi.tuna.tsinghua.edu.cn/simple")
-        os.system(f"pip install mindpet -i https://pypi.tuna.tsinghua.edu.cn/simple")
-
         data_dir = '/cache/data'  
         train_dir = '/cache/output'
         pretrain_dir = '/cache/pretrain'
@@ -302,10 +313,6 @@ if __name__ == "__main__":
         from openi import c2net_multidataset_to_env as DatasetToEnv  
         from openi import pretrain_to_env as PretrainToEnv
         from openi import env_to_openi as EnvToOpeni
-        
-        abs_path = os.path.abspath(os.path.join(os.path.dirname(os.path.abspath(__file__)), ""))
-        os.system(f"pip install -r {abs_path}/requirements.txt")
-        os.system(f"pip install mindpet")
 
         data_dir = '/cache/data'  
         train_dir = '/cache/output'
@@ -318,17 +325,6 @@ if __name__ == "__main__":
             os.makedirs(pretrain_dir)
         DatasetToEnv(args.multi_data_url,data_dir)
         PretrainToEnv(args.pretrain_url,pretrain_dir)
-    
-    from omegaconf import OmegaConf
-
-    from ldm.data.dataset import load_data
-    from ldm.modules.train.optim import build_optimizer
-    from ldm.modules.train.callback import OverflowMonitor
-    from ldm.modules.train.learningrate import LearningRate
-    from ldm.modules.train.parallel_config import ParallelConfig
-    from ldm.models.clip_zh.simple_tokenizer import WordpieceTokenizer
-    from ldm.modules.train.tools import parse_with_config, set_random_seed
-    from ldm.modules.train.cell_wrapper import ParallelTrainOneStepWithLossScaleCell
 
     start = time.time()
     main(args)
